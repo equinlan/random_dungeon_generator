@@ -5,9 +5,10 @@ There are a lot of random dungeon generators out there, and it's a fun problem t
 One of the most important features of a dungeon generator (beside that it successfully generate some kind of dungeon) is what kind of game experience it supports. In this case, I was inspired by my favorite MMO, _Elder Scrolls Online_, and the general structure of its delves: several large rooms arranged in a main loop, which may or may not have many crisscrossing passages. Also, this is meant to be the configurable skeleton of a dungeon generation process. It carves out empty rooms and paths from solid space and returns an image... that's it. Any further development would necessitate more specific requirements about the desired outcome.
 
 To summarize, my objectives were:
-- Create an algorithm with adjustable parameters
+- Create an algorithm with adjustable parameters, including specific map width and height
 - Allow variability in room overlap and intersecting hallways
 - Guarantee at least the existence of a main loop between all rooms
+
 The algorithm works by maintaining a "cost map" of the dungeon, which it uses to inform placement of other rooms and pathfinding operations. When a room is placed, a cost is added to its center cell, which diminishes logarithmically the farther from that cell you go. As more rooms are placed, cells accrue more cost. Each rooom uses a weighted random selection process to disfavor placing itself in higher-costing cells. Pathfinding operations will then treat the cost map values as movement costs.
 
 Dungeon Map|Cost Map

@@ -23,15 +23,21 @@ Required libraries:
 - Pillow
 
 ### Import
+You can import `dungeon_generator.py` directly for use. For instance, if your script is in the same directory as `dungeon_generator.py`, then it's simply:
+
 `import dungeon_generator`
 
 ### Generating a Dungeon
 #### Example
 ```
-dg = dungeon_generator.DungeonGenerator()
+dg = dungeon_generator.DungeonGenerator().generate()
+```
+The `generate` method resets the map, places new rooms, and charts new hallways. It then returns its own `DungeonGenerator` instance populated with those new properties. The `generate` method itself will not create any output; rather, its function is simply to order the `DungeonGenerator` instance to remake itself.
+
+```
+# Regenerate, because I didn't like the first random layout very much
 dg.generate()
 ```
-The `generate` method returns the instance of the `DungeonGenerator`, but it will not create any output. To do that, use the `save_image` method.
 
 #### Documentation
 `DungeonGenerator(target_room_count=12, map_width=48, map_height=32, min_room_dim=5, max_room_dim=15)`
@@ -40,8 +46,14 @@ Arguments:
 - `target_room_count`: `int > 0` representing the desired number of rooms. This number is a "target" because rooms may overlap and become one room, although the algorithm is designed to discourage this. (But hey, variety is the spice of life!)
 - `map_width`: `int > 0` determines the width of the map in cells. (See the `save_image` method documentation for more about how to determine the size of the saved image in pixels.)
 - `map_height`: `int > 0`, same as map width but it's height.
-- `min_room_dim`: `int > 0`, determines the minimum width of a room (before overlapping with other rooms and hallways).
-- `max_room_dim`: `int > 0`, determines the maximum width of a room (also before overlap).
+- `min_room_dim`: `int > 0`, determines the minimum width of a room (before overlapping with other rooms and hallways). Rooms near the edge of the map will not "push" over, but rather will spill off the edge into oblivion.
+- `max_room_dim`: `int > 0`, determines the maximum width of a room (also before overlap, etc.).
+
+`generate(room_cost_weight=3, path_cost_weight=1)`
+
+Arguments:
+- `room_cost_weight`: `float` that is squared and multiplied with the logistic function when adding cost to the map upon creation of a new room. A higher number will influence subsequent rooms to be placed farther away and paths to go farther around existing rooms when possible.
+- `path_cost_weight`: `float` that is the same as its room cost weight equivalent, except it affects the costs added to the cost map after each path creation in order to influence subsequent paths not to get near or cross them.
 
 ### Saving an Image
 #### Example

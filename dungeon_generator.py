@@ -170,7 +170,7 @@ class DungeonGenerator:
             for idxs, _ in np.ndenumerate(self.cost_map):
                 self.cost_map[idxs] += self.ldist(idxs, (ry, rx), room_cost_weight)
         
-        # Connect each room in one giant loop
+        # Connect each room center in one giant loop
         node_pairs = [(i, i + 1) for i in range(self.target_room_count)]
         node_pairs[-1] = (node_pairs[-1][0], node_pairs[0][0])
         self.paths = []
@@ -194,6 +194,7 @@ class DungeonGenerator:
         than zero to change the pixel size of cells.'''
 
         # Initialize image
+        cell_size = cell_size if cell_size > 0 else 1 # Ensure positive cell size
         image_size = (self.map_width * cell_size, self.map_height * cell_size)
         image = Image.new('RGB', image_size, color='black')
         draw = ImageDraw.Draw(image)

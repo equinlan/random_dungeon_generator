@@ -61,6 +61,9 @@ Arguments:
 Once the `generate` method has been called, you can save an image of the dungeon map like this:
 
 `dg.save_image()`
+
+The method also returns a reference to the image.
+
 #### Documentation
 `save_image(image_path='dungeon.jpg', cell_size=16)`
 
@@ -73,6 +76,9 @@ Arguments:
 An optional feature is to view the final state of the cost map after your dungeon was generated. This just gives you a sense of how the algorithm works.
 
 `dg.save_cost_plot()`
+
+The method also returns a reference to the plot.
+
 #### Documentation
 `save_cost_plot(img_path='cost_plot.jpg')`
 

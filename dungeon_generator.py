@@ -189,7 +189,7 @@ class DungeonGenerator:
         # Return the generator
         return self
     
-    def save_image(self, image_path='dungeon.jpg', cell_size=16):
+    def save_image(self, image_path='output/dungeon.jpg', cell_size=16):
         '''Save an image of the map to disk. Pass cell_size an integer greater
         than zero to change the pixel size of cells.'''
 
@@ -227,7 +227,7 @@ class DungeonGenerator:
         # Return image
         return image
     
-    def save_cost_plot(self, img_path='cost_plot.jpg'):
+    def save_cost_plot(self, img_path='output/cost_plot.jpg'):
         '''Visualize the cost plot in 3D.'''
         x = range(self.cost_map.shape[0])
         y = range(self.cost_map.shape[1])

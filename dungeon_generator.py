@@ -239,3 +239,8 @@ class DungeonGenerator:
         ax.set_title('Final cost map')
         fig.savefig(img_path)
         return plt
+    
+if __name__ == '__main__':
+    dg = DungeonGenerator().generate()
+    dg.save_image()
+    dg.save_cost_plot()
